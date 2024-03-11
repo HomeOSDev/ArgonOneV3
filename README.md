@@ -1,37 +1,81 @@
 # ArgonOneV3
-### Argon One V3 Power Button and Fan Control Script Installation Guide
+### Установка скрипта управления кнопкой питания и вентилятором Argon One V3
 
-#### Step 1: Configure EEPROM Setting
+#### Шаг 1: Настройка EEPROM для оптимизации питания и загрузки с NVMe
 
-1. Ensure your Raspberry Pi is connected to the internet and the system time is up-to-date.
-2. Execute the following command in the Terminal to optimize power and enable booting from NVMe:
+1. Подключитесь к интернету, убедитесь, что время на Raspberry Pi обновлено, и выполните следующую команду в терминале:
 
 ```bash
 curl https://download.argon40.com/argon-eeprom.sh | bash
 ```
 
-3. Reboot your Raspberry Pi.
+2. Перезагрузите Raspberry Pi.
 
-#### Step 2: Install Argon Control Script and Config.txt Settings
+#### Шаг 2: Установка скрипта управления Argon и настройки config.txt
 
-1. Connect your Raspberry Pi to the internet.
-2. Run the following command in the Terminal to install the Argon Control Script and configure the `config.txt` settings:
+1. Подключитесь к интернету и выполните следующую команду в терминале:
 
 ```bash
 curl https://download.argon40.com/argon1.sh | bash
 ```
 
-3. Reboot your Raspberry Pi.
+2. Перезагрузите Raspberry Pi.
 
-### Uninstallation
+### Удаление
 
-To uninstall the Argon ONE V3 script, you have two options:
-
-1. Click the Argon ONE V3 Desktop icon.
-2. Alternatively, you can remove the script via Terminal Shell by typing:
+Для удаления скрипта Argon ONE V3 вы можете щелкнуть по значку рабочего стола Argon ONE V3 или ввести следующую команду в терминале:
 
 ```bash
 argonone-uninstall
 ```
 
-Always remember to reboot your Raspberry Pi after changing any configuration or uninstallation for the revised settings to take effect.
+Не забудьте перезагрузить систему после изменения любой конфигурации или удаления скрипта для вступления изменений в силу.
+
+### Автоматические настройки в скрипте Argon One V3
+
+Скрипт ARGON ONE автоматизирует установку всех необходимых библиотек, программ, EEPROM и настроек Config для Raspberry Pi 5 в корпусе Argon ONE V3, чтобы он мог взаимодействовать с Raspberry Pi 5 и выполнять различные функции, такие как активное охлаждение и управление питанием. Ниже приведены настройки, которые были автоматизированы с помощью скрипта Argon ONE:
+
+- **Настройки EEPROM**
+- **Настройки config.txt**
+- **Кнопка питания Argon ONE**
+  - `PSU_MAX_CURRENT=5000`
+  - `usb_max_current_enable=1`
+- **Argon ONE V3 M.2 NVME PCIe**
+  - `BOOT ORDER=0x416`
+  - `PCIE_PROBE=1`
+  - `dtparam=nvme`
+  - `dtparam=pciex1_1=gen3`
+- **Argon BLSTR DAC**
+  - `dtoverlay=hifiberry-dacplus,slave`
+
+### Настройки кнопки питания и вентилятора Argon One V3 по умолчанию
+
+После установки скрипта Argon ONE V3 настройки кнопки питания и системы охлаждения Argon ONE V3 по умолчанию следующие:
+
+Вы можете изменить или настроить вентилятор по вашему желанию, щелкнув по значку рабочего стола Argon ONE V3 или введя следующую команду в терминале и следуя указанному формату:
+
+```bash
+argon-config
+```
+
+### Настройка Argon BLSTR DAC для Raspberry Pi OS
+
+Убедитесь, что вы установили скрипт конфигурации Argon в вашу систему, запустив следующую команду в терминале:
+
+```bash
+curl https://download.argon40.com/argon1.sh | bash
+```
+
+Чтобы войти в инструмент конфигурации Argon, введите `argon-config` в терминале. Введите номер 3, чтобы установить конфигурацию Argon BLSTR DAC. После установки следуйте инструкциям на экране.
+
+Для получения дополнительной информации посетите: [Ресурсы Argon](https://argon40.com/blogs/argon-resources)
+
+### Настройка встроенного ИК-приемника
+
+В последней версии установлен программируемый ИК-приемник, который может включать и выключать устройство с помощью собственного пульта дистанционного управления Argon 40 IR. Чтобы настроить сигнал включения и выключения инфракрасного приемника Argon ONE V3, введите в терминале следующую команду:
+
+```bash
+argonone-ir
+```
+
+Затем следуйте указанным инструкциям.
